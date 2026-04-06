@@ -1,0 +1,16 @@
+# Python bytecode (thevaiyillai)
+__pycache__/
+*.py[cod]
+
+# Virtual Environments (idhu eppovume push panna koodathu)
+venv/
+env/
+.env
+
+# OS related files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+.idea/
