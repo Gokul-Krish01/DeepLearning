@@ -10,15 +10,15 @@ scale=joblib.load("scaler.joblib")
 onxmodel=ort.InferenceSession("iris.onnx")
 target = ["setosa", "versicolor", "virginica"]
 class Features(BaseModel):
-    feature1:int 
-    feature2:int 
-    feature3:int
-    feature4:int
+    feature1:float
+    feature2:float
+    feature3:float
+    feature4:float
 
 
 @app.post("/predict")
 def predict(data:Features):    
-    raw=np.array([data.features])
+    raw=np.array([[data.feature1,data.feature2,data.feature3,data.feature4]])
     scaled =scale.transform(raw).astype(np.float32)
     inputshape=onxmodel.get_inputs()[0].name
     out=onxmodel.run(None,{inputshape:scaled})
@@ -28,11 +28,6 @@ def predict(data:Features):
         "status": "success",
         "data": target[out1]
     }    
-   
-@app.get("/result")
-def result(out1):
-    
-    return out1
 
 # class Student(BaseModel):
 #     name:str
